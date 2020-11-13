@@ -6,9 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Controller {
 
@@ -42,15 +45,35 @@ public class Controller {
 
     public ObservableList<Vehicle> getVehicles(){
 
-        ObservableList<Vehicle> Vehicles = FXCollections.observableArrayList();
+        // Oracle documentation to process SQL statements with JDBC: https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html
+        ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
         Connection connect = getConnection();
         String sql_query = "SELECT * FROM vehicle";
 
-        try{
+        try(Statement statement = connect.createStatement()){
+            ResultSet result_set = statement.executeQuery(sql_query);
+            while(result_set.next()){
+                Vehicle vehicles_queried;
+                vehicles_queried = new Vehicle(result_set.getInt("id"), result_set.getInt("year"), result_set.getString("make"), result_set.getString("model"));
+                vehicles.add(vehicles_queried);
+            }
 
         }
-        catch{
-
+        catch(Exception e){
+            System.out.println("Error:" + e.getMessage());
         }
+
+        return vehicles;
+    }
+
+    public void pushVehicles(){
+
+        ObservableList<Vehicle> vehicles = getVehicles();
+        id_column.setCellValueFactory(new PropertyValueFactory<>("id"));
+        year_column.setCellValueFactory(new PropertyValueFactory<>("year"));
+        make_column.setCellValueFactory(new PropertyValueFactory<>("make"));
+        model_column.setCellValueFactory(new PropertyValueFactory<>("model"));
+
+
     }
 }

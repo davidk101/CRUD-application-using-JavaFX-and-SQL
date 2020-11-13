@@ -1,6 +1,6 @@
 package sample;
 
-// loading data into TableView
+// Primary object to load data to table view
 public class Vehicle {
 
     public int id;
@@ -8,6 +8,7 @@ public class Vehicle {
     public String make;
     public String model;
 
+    // constructor
     public Vehicle(int id, int year, String make, String model) {
 
         this.id = id;
@@ -16,19 +17,26 @@ public class Vehicle {
         this.model = model;
     }
 
+    // defining accessors and mutators
     public int getId() {
         return id;
     }
 
-    public int getYear() {
-        return year;
-    }
+    public void setId(Integer id) {this.id = id;}
+
+    public int getYear() {return year;}
+
+    public void setYear(Integer year) {this.year = year;}
 
     public String getMake() {
         return make;
     }
 
+    public void setMake(String make) {this.make = make;}
+
     public String getModel() {
         return model;
     }
+
+    public void setModel(String model) {this.model = model;}
 }

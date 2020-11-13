@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.jndi.toolkit.url.UrlUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -7,11 +8,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import jdk.nashorn.internal.objects.NativeError;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -28,11 +30,20 @@ public class Controller {
     public Button update_btn;
     public Button delete_btn;
 
+    public void Initialize(URL url, ResourceBundle rb){
+        pushVehicles();
+    }
+
+    public void ButtonPressed(ActionEvent event) throws SQLException {
+        if (event.getSource() == create_btn ){
+            createVehicle();
+        }
+    }
+
     public Connection getConnection(){
 
         Connection connect_object;
         try{
-
             connect_object = DriverManager.getConnection("");
             return connect_object;
 
@@ -57,7 +68,6 @@ public class Controller {
                 vehicles_queried = new Vehicle(result_set.getInt("id"), result_set.getInt("year"), result_set.getString("make"), result_set.getString("model"));
                 vehicles.add(vehicles_queried);
             }
-
         }
         catch(Exception e){
             System.out.println("Error:" + e.getMessage());
@@ -68,12 +78,40 @@ public class Controller {
 
     public void pushVehicles(){
 
-        ObservableList<Vehicle> vehicles = getVehicles();
+        ObservableList<Vehicle> vehicles;
+        vehicles = getVehicles();
         id_column.setCellValueFactory(new PropertyValueFactory<>("id"));
         year_column.setCellValueFactory(new PropertyValueFactory<>("year"));
         make_column.setCellValueFactory(new PropertyValueFactory<>("make"));
         model_column.setCellValueFactory(new PropertyValueFactory<>("model"));
 
+        main_table.setItems(vehicles);
+    }
 
+    public void createVehicle() throws SQLException {
+
+        String sql_query = "INSERT INTO vehicles VALUES(" + id_text.getText() + "," + year_text.getText() + ",'" + make_text.getText() + "','" + model_text.getText() + "')";
+        establishSQLConnection(sql_query);
+        pushVehicles();
+    }
+
+    public void updateVehicle() throws SQLException {
+
+        String sql_query = "UPDATE vehicles SET ";
+        establishSQLConnection(sql_query);
+        pushVehicles();
+
+    }
+
+    private void establishSQLConnection(String sql_query) throws SQLException {
+
+        Connection connect = getConnection();
+
+        try(Statement statement = connect.createStatement()){
+            statement.executeQuery(sql_query);
+        }
+        catch (Exception e){
+            System.out.println("Error:" + e.getMessage());
+        }
     }
 }

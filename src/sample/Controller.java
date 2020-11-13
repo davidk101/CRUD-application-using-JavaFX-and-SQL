@@ -53,7 +53,7 @@ public class Controller {
         // Oracle documentation to process SQL statements with JDBC: https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html
         ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
         Connection connect = getConnection();
-        String sql_query = "SELECT * FROM vehicle";
+        String sql_query = "SELECT * FROM vehicles";
 
         try(Statement statement = connect.createStatement()){
             ResultSet result_set = statement.executeQuery(sql_query);
@@ -91,7 +91,7 @@ public class Controller {
 
     public void updateVehicle() throws SQLException {
 
-        String sql_query = "UPDATE vehicles SET ";
+        String sql_query = "UPDATE vehicles SET year = " + year_text.getText() + ",make = '" + make_text.getText() + "', model = '" + model_text.getText() + "' WHERE id = " + id_text.getText() + "";
         establishSQLConnection(sql_query);
         pushVehicles();
 

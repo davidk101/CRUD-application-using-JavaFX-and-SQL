@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <rowConstraints>
       <RowConstraints />
    </rowConstraints>
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
-   <AnchorPane prefHeight="456.0" prefWidth="717.0">
+   <AnchorPane prefHeight="456.0" prefWidth="717.0" style="-fx-background-color: #ff7675;">
       <VBox layoutX="459.0" layoutY="39.0" prefHeight="164.0" prefWidth="58.0" spacing="25.0">
          <Label text="ID" />
          <Label text="Year" />
@@ -23,7 +23,7 @@
          <TextField fx:id="make_text" />
          <TextField fx:id="model_text" />
       </VBox>
-      <TableView fx:id="main_table" layoutX="31.0" layoutY="35.0" prefHeight="387.0" prefWidth="401.0">
+      <TableView fx:id="main_table" layoutX="31.0" layoutY="35.0" onMouseClicked="#mouseClicked" prefHeight="387.0" prefWidth="401.0">
          <columns>
             <TableColumn fx:id="id_column" prefWidth="100.0" text="ID" />
             <TableColumn fx:id="year_column" prefWidth="100.0" text="Year" />
@@ -31,8 +31,8 @@
             <TableColumn fx:id="model_column" prefWidth="100.0" text="Model" />
          </columns>
       </TableView>
-      <Button fx:id="create_btn" layoutX="525.0" layoutY="246.0" mnemonicParsing="false" text="Create" onAction="#buttonPressed"/>
-      <Button fx:id="update_btn" layoutX="525.0" layoutY="302.0" mnemonicParsing="false" text="Update" />
-      <Button fx:id="delete_btn" layoutX="526.0" layoutY="359.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="create_btn" layoutX="452.0" layoutY="228.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Create" />
+      <Button fx:id="update_btn" layoutX="452.0" layoutY="281.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Update" />
+      <Button fx:id="delete_btn" layoutX="452.0" layoutY="332.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Delete" />
    </AnchorPane>
 </GridPane>

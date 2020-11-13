@@ -1,6 +1,6 @@
 package sample;
 
-// loads data into TableView
+// loading data into TableView
 public class Vehicle {
 
     public int id;

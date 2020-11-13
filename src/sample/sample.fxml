@@ -31,7 +31,7 @@
             <TableColumn fx:id="model_column" prefWidth="100.0" text="Model" />
          </columns>
       </TableView>
-      <Button fx:id="create_btn" layoutX="525.0" layoutY="246.0" mnemonicParsing="false" onAction="#createVehicle" text="Create" />
+      <Button fx:id="create_btn" layoutX="525.0" layoutY="246.0" mnemonicParsing="false" text="Create" onAction="#buttonPressed"/>
       <Button fx:id="update_btn" layoutX="525.0" layoutY="302.0" mnemonicParsing="false" text="Update" />
       <Button fx:id="delete_btn" layoutX="526.0" layoutY="359.0" mnemonicParsing="false" text="Delete" />
    </AnchorPane>

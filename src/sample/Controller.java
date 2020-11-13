@@ -34,12 +34,6 @@ public class Controller {
         pushVehicles();
     }
 
-    public void ButtonPressed(ActionEvent event) throws SQLException {
-        if (event.getSource() == create_btn ){
-            createVehicle();
-        }
-    }
-
     public Connection getConnection(){
 
         Connection connect_object;
@@ -103,6 +97,13 @@ public class Controller {
 
     }
 
+    private void deleteVehicle() throws SQLException {
+        String sql_query = "DELETE FROM vehicles WHERE id = " + id_text.getText() + "";
+        establishSQLConnection(sql_query);
+        pushVehicles();
+
+    }
+
     private void establishSQLConnection(String sql_query) throws SQLException {
 
         Connection connect = getConnection();
@@ -112,6 +113,20 @@ public class Controller {
         }
         catch (Exception e){
             System.out.println("Error:" + e.getMessage());
+        }
+    }
+
+    public void buttonPressed(javafx.event.ActionEvent actionEvent) throws SQLException {
+
+        if (actionEvent.getSource() == create_btn ){
+            createVehicle();
+        }
+        else if(actionEvent.getSource() == update_btn){
+            updateVehicle();
+        }
+
+        else if(actionEvent.getSource() == delete_btn){
+            deleteVehicle();
         }
     }
 }

@@ -31,6 +31,9 @@ public class Controller implements Initializable {
     public Button create_btn;
     public Button update_btn;
     public Button delete_btn;
+    public TextField get_text;
+    public Button get_button;
+    public Button revert_button;
     private Properties user;
     private Properties password;
 
@@ -68,6 +71,44 @@ public class Controller implements Initializable {
             System.out.println("Error:" + e.getMessage());
         }
         return vehicles;
+    }
+
+    // implementing update from remote DB to Desktop GUI application onyl for Get Button
+    public ObservableList<Vehicle> getVehiclesForGetButton(){
+
+        // Oracle documentation to process SQL statements with JDBC: https://docs.oracle.com/javase/tutorial/jdbc/basics/processingsqlstatements.html
+        ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
+        Connection connect = getConnection();
+        String sql_query = "SELECT * FROM vehicles WHERE id = " + get_text.getText() + "";
+
+
+        try(Statement statement = connect.createStatement()){
+            ResultSet result_set = statement.executeQuery(sql_query);
+            // iterating through resultant Vehicle objects from remote DB
+            while(result_set.next()){
+                Vehicle vehicles_queried = new Vehicle(result_set.getInt("id"), result_set.getInt("year"), result_set.getString("make"), result_set.getString("model"));
+                vehicles.add(vehicles_queried);
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error:" + e.getMessage());
+        }
+        return vehicles;
+    }
+
+    // updating data from MySQL DataBase into Desktop GUI application
+    public void pushVehiclesOntoTableForGetButton(){
+
+        // retrieving data from remote DB
+        ObservableList<Vehicle> vehicles = getVehiclesForGetButton();
+
+        // updating DB into GUI application
+        id_column.setCellValueFactory(new PropertyValueFactory<>("id"));
+        year_column.setCellValueFactory(new PropertyValueFactory<>("year"));
+        make_column.setCellValueFactory(new PropertyValueFactory<>("make"));
+        model_column.setCellValueFactory(new PropertyValueFactory<>("model"));
+
+        main_table.setItems(vehicles);
     }
 
     // updating data from MySQL DataBase into Desktop GUI application
@@ -138,6 +179,22 @@ public class Controller implements Initializable {
         }
     }
 
+    // getting Vehicle objects based on ID
+    public void getVehiclesByID() throws SQLException{
+        // testing for invalid user input by means of Dialog
+        if(get_text.getText().equals("")){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter an ID to retrieve corresponding Vehicle entity!", ButtonType.OK);
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
+        }
+        else{
+            String sql_query = "SELECT * FROM vehicles WHERE id = " + get_text.getText() + "";
+            establishSQLConnection(sql_query);
+            pushVehiclesOntoTableForGetButton();
+        }
+    }
+
     // using SQL statement to make relevant query to update table accordingly
     // param: sql_query:String
     private void establishSQLConnection(String sql_query) throws SQLException {
@@ -148,7 +205,7 @@ public class Controller implements Initializable {
             statement.executeUpdate(sql_query);
         }
         catch (Exception e){
-            System.out.println("Error:" + e.getMessage());
+
         }
     }
 
@@ -166,6 +223,15 @@ public class Controller implements Initializable {
 
         else if(actionEvent.getSource() == delete_btn){
             deleteVehicle();
+        }
+
+        else if (actionEvent.getSource() == get_button){
+            getVehiclesByID();
+        }
+
+        else if(actionEvent.getSource() == revert_button){
+            pushVehiclesOntoTable();
+            get_text.clear();
         }
     }
 
@@ -187,4 +253,6 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         pushVehiclesOntoTable();
     }
+
+
 }

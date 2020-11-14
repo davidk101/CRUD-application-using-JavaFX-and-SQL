@@ -31,8 +31,11 @@
             <TableColumn fx:id="model_column" prefWidth="100.0" text="Model" />
          </columns>
       </TableView>
-      <Button fx:id="create_btn" layoutX="452.0" layoutY="228.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Create" />
-      <Button fx:id="update_btn" layoutX="452.0" layoutY="281.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Update" />
-      <Button fx:id="delete_btn" layoutX="452.0" layoutY="332.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Delete" />
+      <Button fx:id="create_btn" layoutX="500.0" layoutY="228.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Create" />
+      <Button fx:id="update_btn" layoutX="500.0" layoutY="276.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Update" />
+      <Button fx:id="delete_btn" layoutX="500.0" layoutY="330.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="27.0" prefWidth="112.0" text="Delete" />
+      <TextField fx:id="get_text" layoutX="453.0" layoutY="382.0" prefHeight="27.0" prefWidth="128.0" promptText="Enter ID to GET data" />
+      <Button fx:id="get_button" layoutX="599.0" layoutY="382.0" mnemonicParsing="false" onAction="#buttonPressed" text="Get" />
+      <Button fx:id="revert_button" layoutX="645.0" layoutY="382.0" mnemonicParsing="false" onAction="#buttonPressed" text="Revert" />
    </AnchorPane>
 </GridPane>

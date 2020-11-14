@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.Controller">
    <rowConstraints>
       <RowConstraints />
    </rowConstraints>
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
-   <AnchorPane prefHeight="456.0" prefWidth="717.0" style="-fx-background-color: #ff7675;">
+   <AnchorPane prefHeight="456.0" prefWidth="717.0" style="-fx-background-color: #74b9ff;">
       <VBox layoutX="459.0" layoutY="39.0" prefHeight="164.0" prefWidth="58.0" spacing="25.0">
          <Label text="ID" />
          <Label text="Year" />

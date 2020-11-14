@@ -43,7 +43,7 @@ public class Controller implements Initializable {
         Connection connect_object;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connect_object = DriverManager.getConnection("jdbc:mysql://localhost:3306/CRUDAPPSCHEMA","root", "Divyan23" );
+            connect_object = DriverManager.getConnection("jdbc:mysql://localhost:3306/CRUDAPPSCHEMA","root", "" );
             return connect_object;
         }
         catch(Exception e){

@@ -6,4 +6,6 @@ The JDBC (Java Database Connectivity) API primarily has a back-end database syst
 
 The JavaFX library leverages GUI components that can be used to represent database records in a more meaningful manner i.e. records displayed in a tabular form with the TableView control.
 
-<img src = "img_display.png" width = "500">
+<img src = "img_display.png" width = "400">
+
+Demo: https://youtu.be/BcSxmjxH65M 
